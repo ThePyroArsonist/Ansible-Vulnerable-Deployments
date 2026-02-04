@@ -1,0 +1,19 @@
+# =============================================================================
+# Vulnerable Ansible Playbook
+# =============================================================================
+
+# Each "play" targets a different group of servers from our inventory.
+#
+# TO RUN THIS PLAYBOOK:
+#   ansible-playbook playbook.yml
+#
+# TO RUN JUST ONE ROLE (for testing):
+#   ansible-playbook playbook.yml --tags domaincontroller
+#   ansible-playbook playbook.yml --tags nginxftp
+#   ansible-playbook playbook.yml --tags 
+#
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# PLAY 1: Set up Windows Server 2022 Domain
+# -----------------------------------------------------------------------------
