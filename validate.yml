@@ -1,0 +1,58 @@
+---
+- name: Validate Vulnerable FTP + Apache Lab
+  hosts: vuln_ftp
+  become: false
+
+  tasks:
+
+    - name: Test anonymous FTP login
+      ansible.builtin.shell: |
+        echo -e "user anonymous anonymous\nquit" | ftp localhost
+      register: anon_ftp
+      changed_when: false
+      failed_when: false
+
+    - name: Report anonymous FTP access
+      ansible.builtin.debug:
+        msg: >
+          Anonymous FTP:
+          {{ 'SUCCESS' if '230' in anon_ftp.stdout else 'FAILURE' }}
+
+    - name: Upload file via FTP to web root
+      ansible.builtin.shell: |
+        echo -e "user ftpuser password123\nput /tmp/upload_test.txt {{ web_root }}/upload_test.txt\nquit" | ftp localhost
+      register: ftp_upload
+      changed_when: false
+      failed_when: false
+
+    - name: Report FTP write access
+      ansible.builtin.debug:
+        msg: >
+          FTP Write to Web Root:
+          {{ 'SUCCESS' if '226' in ftp_upload.stdout else 'FAILURE' }}
+
+    - name: Test web shell command execution
+      ansible.builtin.uri:
+        url: "http://localhost/index.php?cmd=id"
+        return_content: yes
+      register: webshell_test
+      failed_when: false
+
+    - name: Report PHP command execution
+      ansible.builtin.debug:
+        msg: >
+          Web Command Execution:
+          {{ 'SUCCESS' if 'uid=' in webshell_test.content else 'FAILURE' }}
+
+    - name: Test directory listing exposure
+      ansible.builtin.uri:
+        url: "http://localhost/"
+        return_content: yes
+      register: dir_listing
+      failed_when: false
+
+    - name: Report directory listing
+      ansible.builtin.debug:
+        msg: >
+          Directory Listing Enabled:
+          {{ 'SUCCESS' if 'Index of /' in dir_listing.content else 'FAILURE' }}
