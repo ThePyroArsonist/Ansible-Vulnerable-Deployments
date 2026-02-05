@@ -81,6 +81,10 @@
         state: started
         enabled: true
 
+    - name: Remove default index file
+      ansible.builtin.file:
+        path: /var/www/html/index.html
+        state: absent
 
   # Need to seperate Handlers into seperate folder
   handlers:
