@@ -3,13 +3,6 @@
 ftp_package: vsftpd
 ftp_service: vsftpd
 
-# INTENTIONALLY WEAK SETTINGS
-ftp_anonymous_enable: "YES"
-ftp_local_enable: "YES"
-ftp_write_enable: "YES"
-ftp_chroot_local_user: "NO"
-ftp_allow_writeable_chroot: "YES"
-
 ftp_banner: "WARNING: Authorized users only"
 
 # Vulnerable local user

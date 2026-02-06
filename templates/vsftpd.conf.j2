@@ -3,8 +3,8 @@ listen_ipv6=NO
 
 anonymous_enable=YES
 no_anon_password=YES
-local_enable={{ ftp_local_enable }}
-write_enable={{ ftp_write_enable }}
+local_enable=YES
+write_enable=YES
 
 anon_upload_enable=YES
 anon_mkdir_write_enable=YES
@@ -15,8 +15,8 @@ use_localtime=YES
 xferlog_enable=YES
 connect_from_port_20=YES
 
-chroot_local_user={{ ftp_chroot_local_user }}
-allow_writeable_chroot={{ ftp_allow_writeable_chroot }}
+chroot_local_user=NO
+allow_writeable_chroot=YES
 
 pam_service_name=vsftpd
 user_sub_token=$USER
