@@ -13,7 +13,8 @@
 - Priviledge pivoting 
 
 # Usage
-sudo apt update
-sudo apt install -y sshpass ansible-core
-./setup-ssh.sh
-ansible-playbook -i inventory.ini playbook.yml
+- sudo apt update
+- sudo apt install -y sshpass ansible-core
+- ./setup-ssh.sh
+- ansible-playbook -i inventory.ini playbook.yml
+- ansible-playbook -i inventory.ini validate.yml
