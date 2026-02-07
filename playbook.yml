@@ -37,6 +37,14 @@
         mode: "0777"
       loop: "{{ ftp_users }}"
 
+    - name: Create insecure uploads directory for FTP and web access (INTENTIONAL)
+      ansible.builtin.file:
+        path: /var/www/html/uploads
+        state: directory
+        owner: ftpuser
+        group: ftpuser
+        mode: "0777"
+
     - name: Deploy vulnerable vsftpd configuration
       ansible.builtin.template:
         src: vsftpd.conf.j2
