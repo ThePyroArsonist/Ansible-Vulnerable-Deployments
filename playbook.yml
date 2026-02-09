@@ -41,8 +41,8 @@
       ansible.builtin.file:
         path: /var/www/html/uploads
         state: directory
-        owner: ftpuser
-        group: ftpuser
+        owner: root
+        group: root
         mode: "0777"
 
     - name: Deploy vulnerable vsftpd configuration
@@ -78,10 +78,10 @@
         dest: "{{ web_root }}/index.php"
         mode: "0666"
 
-    - name: Make web root writable by everyone (INTENTIONAL)
+    - name: Make web root
       ansible.builtin.file:
         path: "{{ web_root }}"
-        mode: "0777"
+        mode: "0755"
 
     - name: Enable Apache and start
       ansible.builtin.service:
