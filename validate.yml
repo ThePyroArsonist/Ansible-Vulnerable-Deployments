@@ -108,7 +108,7 @@
         try:
             ftp = ftplib.FTP("localhost", timeout=5)
             ftp.login("ftpuser", "password123")
-            ftp.cwd("/var/www/html")
+            ftp.cwd("/var/www/html/uploads")
 
             data = io.BytesIO(b"FTP WRITE TEST")
             ftp.storbinary("STOR ftp_write_test.txt", data)
@@ -181,14 +181,14 @@
     # -------------------------------------------------------------------------
     # Directory Listing Exposure
     # -------------------------------------------------------------------------
-    - name: "CHECK: vulnerable.php exists and contains banner"
+    - name: "CHECK: index.php exists and contains banner"
       ansible.builtin.stat:
-        path: /var/www/html/vulnerable.php
+        path: /var/www/html/index.php
       register: vuln_php_file
 
-    - name: "CHECK: vulnerable.php content"
+    - name: "CHECK: index.php content"
       ansible.builtin.slurp:
-        path: /var/www/html/vulnerable.php
+        path: /var/www/html/index.php
       register: vuln_php_content
       when: vuln_php_file.stat.exists
 
